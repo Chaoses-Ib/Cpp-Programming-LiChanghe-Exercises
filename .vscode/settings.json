@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "xutility": "cpp",
+        "iterator": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "xstring": "cpp",
+        "sstream": "cpp"
     }
 }
