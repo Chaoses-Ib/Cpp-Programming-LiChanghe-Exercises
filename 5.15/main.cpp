@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -63,8 +64,26 @@ ostream& operator<<(ostream& o, vector<vector<int>> vv){
     return o;
 }
 
+pair<int,int> FindFactorPair(int n){
+    int root = floor(sqrt(n));
+    int a = 1, b = n;
+    for(int i = 2; i <= root; i++){
+        for(int j = root; j <= n; j++){
+            if(i*j == n){
+                a = i, b = j;
+            }
+        }
+    }
+    return {a,b};
+}
+
 int main(){
-    cout << MakeTable(3, 4);
+    auto print_table = [](int n){
+        auto [r, c] = FindFactorPair(n);
+        cout << MakeTable(r, c);
+    };
+
+    print_table(12);
     cout << endl;
-    cout << MakeTable(10, 10);
+    print_table(100);
 }

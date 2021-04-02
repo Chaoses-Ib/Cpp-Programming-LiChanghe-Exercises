@@ -10,6 +10,7 @@
 				"/EHsc",
 				"/nologo",
 				"/MD",
+				"/std:c++latest",
 				"/Fe:",
 				"${fileDirname}/out/${fileBasenameNoExtension}.exe",
 				"${file}",
