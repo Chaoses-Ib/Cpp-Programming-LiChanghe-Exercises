@@ -67,11 +67,11 @@ ostream& operator<<(ostream& o, vector<vector<int>> vv){
 pair<int,int> FindFactorPair(int n){
     int root = floor(sqrt(n));
     int a = 1, b = n;
-    for(int i = 2; i <= root; i++){
-        for(int j = root; j <= n; j++){
-            if(i*j == n){
-                a = i, b = j;
-            }
+    for(int i = root; i >= 2; --i){
+        int j = n / i;
+        if(i * j == n || i * ++j == n){
+            a = i, b = j;
+            break;
         }
     }
     return {a,b};
