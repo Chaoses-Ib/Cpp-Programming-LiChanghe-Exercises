@@ -2,49 +2,44 @@
 #include <iomanip>
 #include <vector>
 #include <utility>
+#include <numeric>
 
 using namespace std;
 
 vector<vector<int>> MakeTable(int row, int col){
-    vector<vector<int>> table(row, vector<int>(col, 0));
-    
+    vector<vector<int>> table(row, vector<int>(col));
     int n = 1;
-    int i = row - 1, j = col - 1;
-    table[i][j] = n++;
+    int i = row, j = col - 1;
     enum direction{up, down, left, right} d = up;
 
     do{
         switch(d){
             case up:
-                while(--i >= 0 && !table[i][j]){
-                    table[i][j] = n++;
-                }
-                ++i;
+                for(int k=0; k < row; k++)
+                    table[--i][j] = n++;
                 d = left;
+                col--;
                 break;
             case down:
-                while(++i < row && !table[i][j]){
-                    table[i][j] = n++;
-                }
-                --i;
+                for(int k=0; k < row; k++)
+                    table[++i][j] = n++;
                 d = right;
+                col--;
                 break;
             case left:
-                while(--j >= 0 && !table[i][j]){
-                    table[i][j] = n++;
-                }
-                j++;
+                for(int k=0; k < col; k++)
+                    table[i][--j] = n++;
                 d = down;
+                row--;
                 break;
             case right:
-                while(++j < col && !table[i][j]){
-                    table[i][j] = n++;
-                }
-                j--;
+                for(int k=0; k < col; k++)
+                    table[i][++j] = n++;
                 d = up;
+                row--;
                 break;
         }
-    }while(n <= row*col);
+    }while(col && row);
 
     return table;
 }
@@ -77,13 +72,14 @@ pair<int,int> FindFactorPair(int n){
     return {a,b};
 }
 
-int main(){
-    auto print_table = [](int n){
-        auto [r, c] = FindFactorPair(n);
-        cout << MakeTable(r, c);
-    };
+vector<vector<int>> MakeTable(int n){
+    auto [r, c] = FindFactorPair(n);
+    return MakeTable(r, c);
+}
 
-    print_table(12);
-    cout << endl;
-    print_table(100);
+int main(){
+    cout << "12 = 3*4\n" << MakeTable(12) << endl;
+    cout << "100 = 10*10\n" << MakeTable(100) << endl;
+    cout << "100 = 5*20\n" << MakeTable(5, 20) << endl;
+    cout << "520 = 20*26\n" << MakeTable(520) << endl;
 }
