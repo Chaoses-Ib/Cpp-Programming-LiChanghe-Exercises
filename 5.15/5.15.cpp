@@ -2,7 +2,6 @@
 #include <iomanip>
 #include <vector>
 #include <utility>
-#include <numeric>
 
 using namespace std;
 
