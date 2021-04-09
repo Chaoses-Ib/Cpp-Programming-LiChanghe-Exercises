@@ -65,10 +65,13 @@ std::ostream& operator<<(std::ostream& o, const Complex& c){
     o << c.m_real << std::showpos << c.m_image << std::noshowpos << 'i';
     return o;
 }
-std::istream& operator>>(std::istream& in, Complex& c){
+std::istream& operator>>(std::istream& in, Complex& complex){
+    Complex c;
     char ch;
     in >> c.m_real >> c.m_image >> ch;
-    if(ch != 'i')
+    if(ch == 'i')
+        complex = std::move(c);
+    else
         in.clear(std::ios::failbit);
     return in;
 }
